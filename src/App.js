@@ -1,7 +1,5 @@
-
-import './App.css';
-import Navbar from './coomponents/Navbar';
-import Home from './coomponents/Home';
+import Navbar from './coomponents/navbar/Navbar';
+import Home from './coomponents/home/Home';
 
 
 function App() {
