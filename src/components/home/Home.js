@@ -4,23 +4,23 @@ import BlogList from "../blogList/BlogList";
 import "./Home.css"
 
 const Home = () => {
-    const [blogs, setblogs] = useState([
-        {title: "my new website", body: "lorem ipsum...", author: "Ali", id: 1},
-        {title: "welcome party", body: "lorem ipsum...", author: "himd", id: 2},
-        {title: "web dev top tips", body: "lorem ipsum...", author: "Ali", id: 3}
-    ]);
-
-    const handleDelete = (id)=>{
-        const updatedBlogs = blogs.filter(blog => blog.id !== id);
-        setblogs(updatedBlogs)
-    }
+    const [blogs, setblogs] = useState(null);
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(()=>{
-        
+        fetch("http://localhost:8000/blogs")
+        .then((res)=>{
+            return res.json()
+        })
+        .then(data =>{
+            setblogs(data);
+            setIsLoading(false)
+        })
     },[])
     return ( 
         <div className="home">
-            <BlogList blogs={blogs} title="All blogs" handleDelete={handleDelete} />
+            {isLoading && <div>Loading...</div>}
+            {blogs && <BlogList blogs={blogs} title="All blogs"/>}
         </div>
      );
 }
